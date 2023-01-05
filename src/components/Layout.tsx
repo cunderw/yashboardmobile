@@ -12,15 +12,17 @@ type Props = {
 
 const Layout: React.FC<Props> = props => {
   return (
-    <ScrollView>
+    <View>
       <Header
         openAddAppModal={props.openAddAppModal}
         isEditMode={props.isEditMode}
         enableEditMode={props.enableEditMode}
         disableEditMode={props.disableEditMode}
       />
-      <View>{props.children}</View>
-    </ScrollView>
+      <ScrollView>
+        <View>{props.children}</View>
+      </ScrollView>
+    </View>
   )
 }
 

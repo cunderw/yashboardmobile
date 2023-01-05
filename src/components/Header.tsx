@@ -13,7 +13,7 @@ const Header: React.FC<Props> = _props => {
   return (
     <Appbar.Header>
       <Appbar.Action icon="menu" onPress={() => {}} />
-      <Appbar.Content title="Title" />
+      <Appbar.Content title="YaSHBoard" />
     </Appbar.Header>
   )
 }

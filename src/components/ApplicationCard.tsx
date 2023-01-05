@@ -1,91 +1,56 @@
 import React from 'react'
-// import UpdateApplicationForm from './forms/UpdateApplicationForm'
-// import {useApplication} from '../hooks/UseApplication'
-// import {ApplicationStatus} from '../models/Application'
 import {View} from 'react-native'
+import {Button, Card, ProgressBar, MD3Colors, Avatar} from 'react-native-paper'
+import {useApplication} from '../hooks/UseApplication'
+import {ApplicationStatus} from '../models/Application'
 
 type Props = {
-  // Props
   appId: string
   isEditMode: boolean
 }
 
-const ApplicationCard: React.FC<Props> = _props => {
-  // const {application, isError, isLoading} = useApplication(props.appId)
+const cardStyle = {
+  margin: 10,
+}
+
+const statusIconStyle = {
+  margin: 10,
+}
+
+const ApplicationCard: React.FC<Props> = props => {
+  const {application, isError, isLoading} = useApplication(props.appId)
   // const [showUpdateApplication, setShowUpdateApplication] = useState(false)
 
-  // if (isError) return <div>failed to load</div>
-  // if (isLoading) return <div>loading...</div>
+  if (isError) return <ProgressBar progress={0.5} color={MD3Colors.error50} />
+  if (isLoading) return <ProgressBar progress={0.5} color={MD3Colors.error50} />
 
-  // const openInNewTab = (url: string | URL | undefined) => {
-  //   if (!props.isEditMode) {
-  //     const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-  //     if (newWindow) newWindow.opener = null
-  //   }
-  // }
+  const rightContent = () => (
+    <Avatar.Icon
+      size={32}
+      style={statusIconStyle}
+      icon={
+        application.status == ApplicationStatus.OK
+          ? 'checkbox-marked-circle'
+          : 'alert-circle'
+      }
+    />
+  )
 
-  // const card = (
-  //   <React.Fragment>
-  //     <Box sx={{display: 'flex', flexDirection: 'column'}}>
-  //       <CardContent sx={{flex: '1 0 auto'}}>
-  //         <Typography sx={{fontSize: 14}} color="text.secondary" noWrap>
-  //           {application?.url}
-  //         </Typography>
-  //         <Typography variant="h5" noWrap>
-  //           {application?.name}
-  //         </Typography>
-  //       </CardContent>
-  //       {props.isEditMode ? (
-  //         <CardActions>
-  //           <Button
-  //             size="small"
-  //             onClick={() => setShowUpdateApplication(!showUpdateApplication)}>
-  //             Edit
-  //           </Button>
-  //         </CardActions>
-  //       ) : (
-  //         <CardActions />
-  //       )}
-  //     </Box>
-  //     <Box sx={{m: 2}}>
-  //       {application?.status === ApplicationStatus.OK ? (
-  //         <CheckCircleIcon />
-  //       ) : (
-  //         <ErrorIcon />
-  //       )}
-  //     </Box>
-  //   </React.Fragment>
-  // )
-
-  // const updateCard = (
-  //   <React.Fragment>
-  //     <CardContent>
-  //       <UpdateApplicationForm appId={props.appId} />
-  //     </CardContent>
-  //     <CardActions>
-  //       <Button
-  //         size="small"
-  //         onClick={() => setShowUpdateApplication(!showUpdateApplication)}>
-  //         Done
-  //       </Button>
-  //     </CardActions>
-  //   </React.Fragment>
-  // )
-
-  // return (
-  //   <Box onClick={() => openInNewTab(application?.url)}>
-  //     {showUpdateApplication && props.isEditMode ? (
-  //       <Card variant="outlined" sx={{display: 'flex'}}>
-  //         {updateCard}
-  //       </Card>
-  //     ) : (
-  //       <Card variant="outlined" sx={{display: 'flex'}}>
-  //         {card}
-  //       </Card>
-  //     )}
-  //   </Box>
-  // )
-  return <View />
+  const card = () => (
+    <Card mode="elevated" style={cardStyle}>
+      <Card.Title
+        title={application.name}
+        subtitle={application.url}
+        right={rightContent}
+      />
+      {props.isEditMode ?? (
+        <Card.Actions>
+          <Button>Edit</Button>
+        </Card.Actions>
+      )}
+    </Card>
+  )
+  return <View>{card()}</View>
 }
 
 export default ApplicationCard
