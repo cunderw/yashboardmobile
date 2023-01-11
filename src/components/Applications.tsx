@@ -2,7 +2,7 @@ import React from 'react'
 import {View} from 'react-native'
 import {ProgressBar, MD3Colors} from 'react-native-paper'
 import ApplicationCard from './ApplicationCard'
-import {useApplications} from '../hooks/UseApplication'
+import {useApplications, useApplication} from '../hooks/UseApplication'
 
 type Props = {
   isEditMode: boolean
@@ -21,6 +21,7 @@ const Applications: React.FC<Props> = props => {
           key={application.id}
           appId={application.id}
           isEditMode={props.isEditMode}
+          useApplication={useApplication}
         />
       ))}
     </View>

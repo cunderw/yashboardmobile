@@ -1,12 +1,12 @@
 import React from 'react'
 import {View} from 'react-native'
 import {Button, Card, ProgressBar, MD3Colors, Avatar} from 'react-native-paper'
-import {useApplication} from '../hooks/UseApplication'
 import {ApplicationStatus} from '../models/Application'
 
 type Props = {
   appId: string
   isEditMode: boolean
+  useApplication: Function
 }
 
 const cardStyle = {
@@ -18,7 +18,7 @@ const statusIconStyle = {
 }
 
 const ApplicationCard: React.FC<Props> = props => {
-  const {application, isError, isLoading} = useApplication(props.appId)
+  const {application, isError, isLoading} = props.useApplication(props.appId)
   // const [showUpdateApplication, setShowUpdateApplication] = useState(false)
 
   if (isError) return <ProgressBar progress={0.5} color={MD3Colors.error50} />
@@ -26,10 +26,11 @@ const ApplicationCard: React.FC<Props> = props => {
 
   const rightContent = () => (
     <Avatar.Icon
+      testID="statusIcon"
       size={32}
       style={statusIconStyle}
       icon={
-        application.status == ApplicationStatus.OK
+        application.status === ApplicationStatus.OK
           ? 'checkbox-marked-circle'
           : 'alert-circle'
       }

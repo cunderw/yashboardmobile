@@ -6,7 +6,6 @@ export const useApplication = (id: string) => {
   const {data, error, isLoading} = useSWR<Application, Error>(
     `http://127.0.0.1:3000/api/applications/${id}`,
     fetcher,
-    {refreshInterval: 1000},
   )
   return {
     application: data ?? {
@@ -27,7 +26,6 @@ export const useApplications = () => {
   const {data, error, isLoading} = useSWR<Application[], Error>(
     'http://127.0.0.1:3000/api/applications/',
     fetcher,
-    {refreshInterval: 1000},
   )
   return {
     applications: data ?? [],

@@ -11,8 +11,13 @@ type Props = {
 
 const Header: React.FC<Props> = _props => {
   return (
-    <Appbar.Header>
-      <Appbar.Action icon="menu" onPress={() => {}} />
+    <Appbar.Header testID="header">
+      <Appbar.Action
+        icon="menu"
+        onPress={() => {
+          console.log('menu')
+        }}
+      />
       <Appbar.Content title="YaSHBoard" />
     </Appbar.Header>
   )
