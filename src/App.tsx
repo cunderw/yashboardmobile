@@ -1,32 +1,37 @@
-import React, {useState} from 'react'
-import {SafeAreaView} from 'react-native'
-import Layout from './components/Layout'
-import Applications from './components/Applications'
-import {SafeAreaProvider} from 'react-native-safe-area-context'
-// import {pass} from './pass'
+import {NavigationContainer} from '@react-navigation/native'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import React from 'react'
+import {Button} from 'react-native'
+import HomeScreen from './components/screens/HomeScreen'
+import AddApplicationScreen from './components/screens/AddApplicationScreen'
 
 const App = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [addAppModalOpen, setAppModalOpen] = useState(false)
-  const [isEditMode, setEditMode] = useState(false)
-  const openAddAppModal = () => setAppModalOpen(true)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const closeAddAppModal = () => setAppModalOpen(false)
-  const enableEditMode = () => setEditMode(true)
-  const disableEditMode = () => setEditMode(false)
+  const Stack = createNativeStackNavigator()
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView>
-        <Layout
-          openAddAppModal={openAddAppModal}
-          enableEditMode={enableEditMode}
-          disableEditMode={disableEditMode}
-          isEditMode={isEditMode}>
-          <Applications isEditMode={isEditMode} />
-        </Layout>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="home"
+          component={HomeScreen}
+          options={({navigation}) => ({
+            title: 'Home',
+            headerStyle: {
+              backgroundColor: '#273469',
+            },
+            headerTintColor: '#EBF2FA',
+            headerRight: () => (
+              <Button
+                onPress={() => navigation.navigate('Add')}
+                title="Add"
+                color="#EBF2FA"
+              />
+            ),
+          })}
+        />
+        <Stack.Screen name="Add" component={AddApplicationScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 

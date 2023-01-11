@@ -1,6 +1,6 @@
 import React from 'react'
 import {render, screen} from '@testing-library/react-native'
-import ApplicationCard from '../src/components/ApplicationCard'
+import ApplicationCard from '../src/components/cards/ApplicationCard'
 import {Application, ApplicationStatus} from '../src/models/Application'
 
 test('redners application card', () => {
@@ -13,26 +13,11 @@ test('redners application card', () => {
     keyParam: 'keyParam',
     status: ApplicationStatus.OK,
   }
-  const mockFn = jest.fn((_appId: string) => {
-    return {
-      application,
-      isError: false,
-      isLoading: false,
-    }
-  })
 
-  render(
-    <ApplicationCard
-      key={application.id}
-      appId={application.id}
-      isEditMode={false}
-      useApplication={mockFn}
-    />,
-  )
-
-  expect(mockFn).toBeCalledWith(application.id)
+  render(<ApplicationCard key={application.id} application={application} />)
 
   const statusIcon = screen.getByTestId('statusIcon')
+
   expect(statusIcon.props.children.props.source).toEqual(
     'checkbox-marked-circle',
   )

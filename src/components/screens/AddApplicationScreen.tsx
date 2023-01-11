@@ -1,7 +1,7 @@
 import React from 'react'
 import {View} from 'react-native'
 
-const AddApplication: React.FC = () => {
+const AddApplicationScreen: React.FC = () => {
   // const [name, setName] = useState('')
   // const [url, setUrl] = useState('')
   // const [livenessUrl, setLiveNessUrl] = useState('')
@@ -102,4 +102,4 @@ const AddApplication: React.FC = () => {
   return <View />
 }
 
-export default AddApplication
+export default AddApplicationScreen
