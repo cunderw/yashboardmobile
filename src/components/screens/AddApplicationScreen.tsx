@@ -1,5 +1,5 @@
-import React from 'react'
-import {View} from 'react-native'
+import React from 'react';
+import {View} from 'react-native';
 
 const AddApplicationScreen: React.FC = () => {
   // const [name, setName] = useState('')
@@ -99,7 +99,7 @@ const AddApplicationScreen: React.FC = () => {
   //  </Container>
   //)
 
-  return <View />
-}
+  return <View />;
+};
 
-export default AddApplicationScreen
+export default AddApplicationScreen;

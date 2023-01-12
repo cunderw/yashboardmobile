@@ -1,7 +1,7 @@
-import React from 'react'
-import {render, screen} from '@testing-library/react-native'
-import ApplicationCard from '../src/components/cards/ApplicationCard'
-import {Application, ApplicationStatus} from '../src/models/Application'
+import React from 'react';
+import {render, screen} from '@testing-library/react-native';
+import ApplicationCard from '../src/components/cards/ApplicationCard';
+import {Application, ApplicationStatus} from '../src/models/Application';
 
 test('redners application card', () => {
   const application: Application = {
@@ -12,13 +12,26 @@ test('redners application card', () => {
     apiKey: 'apiKey',
     keyParam: 'keyParam',
     status: ApplicationStatus.OK,
-  }
+  };
+  const mockFn = jest.fn((_appId: string) => {
+    return {
+      application,
+      isError: false,
+      isLoading: false,
+    };
+  });
 
-  render(<ApplicationCard key={application.id} application={application} />)
+  render(
+    <ApplicationCard
+      key={application.id}
+      id={application.id}
+      useApplication={mockFn}
+      isRefreshing={false}
+    />,
+  );
 
-  const statusIcon = screen.getByTestId('statusIcon')
+  expect(mockFn).toBeCalledWith(application.id);
 
-  expect(statusIcon.props.children.props.source).toEqual(
-    'checkbox-marked-circle',
-  )
-})
+  const statusIcon = screen.getByTestId('statusIcon');
+  expect(statusIcon.props.children[0]).toEqual('');
+});

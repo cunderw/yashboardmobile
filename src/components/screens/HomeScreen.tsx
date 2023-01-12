@@ -1,8 +1,8 @@
-import React from 'react'
-import Applications from '../Applications'
+import React from 'react';
+import Applications from '../Applications';
 
 const HomeScreen = () => {
-  return <Applications />
-}
+  return <Applications />;
+};
 
-export default HomeScreen
+export default HomeScreen;

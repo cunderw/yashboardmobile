@@ -1,4 +1,4 @@
-import {by, device, expect, element} from 'detox'
+import {by, device, expect, element} from 'detox';
 
 describe('Example', () => {
   beforeAll(async () => {
@@ -6,14 +6,14 @@ describe('Example', () => {
       permissions: {
         location: 'always',
       },
-    })
-  })
+    });
+  });
 
   beforeEach(async () => {
-    await device.reloadReactNative()
-  })
+    await device.reloadReactNative();
+  });
 
   it('should have welcome screen', async () => {
-    await expect(element(by.id('header'))).toBeVisible()
-  })
-})
+    await expect(element(by.id('header'))).toBeVisible();
+  });
+});

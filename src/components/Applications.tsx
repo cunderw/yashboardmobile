@@ -1,35 +1,49 @@
-import React from 'react'
-import {ProgressBar, MD3Colors} from 'react-native-paper'
-import ApplicationCard from './cards/ApplicationCard'
-import {useApplications} from '../hooks/UseApplication'
-import {Application} from '../models/Application'
-import {FlatList} from 'react-native'
+import React, {useState} from 'react';
+import ApplicationCard from './cards/ApplicationCard';
+import {useApplications, useApplication} from '../hooks/UseApplication';
+import {Application} from '../models/Application';
+import {FlatList, View} from 'react-native';
 
 const Applications: React.FC = () => {
-  const {applications, isError, isLoading, refresh} = useApplications()
-
-  if (isError) return <ProgressBar progress={0.5} color={MD3Colors.error50} />
-  if (isLoading) return <ProgressBar progress={0.5} color={MD3Colors.error50} />
+  const {applications, isError, isLoading, refresh} = useApplications();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [refreshApp, toggleRefreshApp] = useState(false);
 
   const renderItem = ({item}: {item: Application}) => (
-    <ApplicationCard application={item} />
-  )
+    <ApplicationCard
+      id={item.id}
+      useApplication={useApplication}
+      isRefreshing={refreshApp}
+    />
+  );
+
   const refreshApps = () => {
-    console.debug('Refreshing Applications')
+    setIsRefreshing(true);
+    toggleRefreshApp(prev => !prev);
     refresh(applications, {
       revalidate: true,
-    })
-    console.debug(applications)
+    });
+    console.debug('Refreshed Applications', applications);
+    setIsRefreshing(false);
+  };
+
+  if (isError) {
+    return <View />;
   }
+
+  if (isLoading) {
+    return <View />;
+  }
+
   return (
     <FlatList
       data={applications}
       renderItem={renderItem}
       keyExtractor={item => item.id}
       onRefresh={refreshApps}
-      refreshing={isLoading}
+      refreshing={isRefreshing}
     />
-  )
-}
+  );
+};
 
-export default Applications
+export default Applications;

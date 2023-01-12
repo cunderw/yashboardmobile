@@ -1,4 +1,4 @@
-import type {Config} from 'jest'
+import type {Config} from 'jest';
 
 const config: Config = {
   verbose: true,
@@ -9,6 +9,6 @@ const config: Config = {
   transformIgnorePatterns: [
     'node_modules/(?!(@react-native|react-native|react-native-vector-icons)/)',
   ],
-}
+};
 
-export default config
+export default config;
