@@ -1,19 +1,20 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useState} from 'react';
 import {Button} from 'react-native';
 import HomeScreen from './components/screens/HomeScreen';
 import AddApplicationScreen from './components/screens/AddApplicationScreen';
+import EditApplicationScreen from './components/screens/EditApplicationScreen';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
+  const [hasAppListUpdated, setHasAppListUpdated] = useState(false);
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="home"
-          component={HomeScreen}
           options={({navigation}) => ({
             title: 'Home',
             headerStyle: {
@@ -22,14 +23,36 @@ const App = () => {
             headerTintColor: '#EBF2FA',
             headerRight: () => (
               <Button
-                onPress={() => navigation.navigate('Add')}
+                onPress={() => navigation.navigate('AddApplication')}
                 title="Add"
                 color="#EBF2FA"
               />
             ),
-          })}
-        />
-        <Stack.Screen name="Add" component={AddApplicationScreen} />
+          })}>
+          {props => (
+            <HomeScreen
+              {...props}
+              hasAppListUpdated={hasAppListUpdated}
+              setHasAppListUpdated={setHasAppListUpdated}
+            />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="AddApplication">
+          {props => (
+            <AddApplicationScreen
+              {...props}
+              setHasAppListUpdated={setHasAppListUpdated}
+            />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="EditApplication">
+          {props => (
+            <EditApplicationScreen
+              {...props}
+              setHasAppListUpdated={setHasAppListUpdated}
+            />
+          )}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

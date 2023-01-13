@@ -62,7 +62,12 @@ test('redners application list', async () => {
     };
   });
 
-  render(<ApplicationList />);
+  render(
+    <ApplicationList
+      hasAppListUpdated={false}
+      setHasAppListUpdated={() => {}}
+    />,
+  );
 
   let cards = screen.getAllByTestId('application-card');
   expect(cards.length).toBe(3);

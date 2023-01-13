@@ -2,10 +2,10 @@ import React from 'react';
 import {fireEvent, render, screen} from '@testing-library/react-native';
 import AddApplicationScreen from '../src/components/screens/AddApplicationScreen';
 import '@testing-library/jest-native/extend-expect';
-import * as dataApi from '../src/data/AddApplication';
+import * as dataApi from '../src/data/Applications';
 
 test('renders add application screen', () => {
-  render(<AddApplicationScreen />);
+  render(<AddApplicationScreen setHasAppListUpdated={() => {}} />);
 
   const nameInput = screen.getByTestId('name-input');
   const urlInput = screen.getByTestId('url-input');
@@ -23,7 +23,7 @@ test('renders add application screen', () => {
 });
 
 test('name input is required', () => {
-  render(<AddApplicationScreen />);
+  render(<AddApplicationScreen setHasAppListUpdated={() => {}} />);
   const nameInput = screen.getByTestId('name-input');
 
   expect(screen.getByTestId('name-input-required-error')).toBeVisible();
@@ -32,7 +32,7 @@ test('name input is required', () => {
 });
 
 test('url input is required', () => {
-  render(<AddApplicationScreen />);
+  render(<AddApplicationScreen setHasAppListUpdated={() => {}} />);
   const nameInput = screen.getByTestId('url-input');
 
   expect(screen.getByTestId('url-input-required-error')).toBeVisible();
@@ -44,7 +44,7 @@ test('submits data', () => {
   jest
     .spyOn(dataApi, 'AddApplication')
     .mockImplementation(_data => Promise.resolve({}));
-  render(<AddApplicationScreen />);
+  render(<AddApplicationScreen setHasAppListUpdated={() => {}} />);
 
   const nameInput = screen.getByTestId('name-input');
   const urlInput = screen.getByTestId('url-input');

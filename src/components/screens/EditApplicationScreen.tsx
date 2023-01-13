@@ -1,5 +1,5 @@
 import React from 'react';
-import {AddApplication} from '../../data/Applications';
+import {UpdateApplication} from '../../data/Applications';
 import {Application} from '../../models/Application';
 import ApplicationForm from '../forms/ApplicationForm';
 
@@ -7,19 +7,19 @@ type Props = {
   setHasAppListUpdated: Function;
 };
 
-const AddApplicationScreen: React.FC<Props> = props => {
+const EditApplicationScreen: React.FC<Props> = props => {
   const {setHasAppListUpdated} = props;
 
-  const addApplication = async (data: Application) => {
-    await AddApplication(data);
+  const updateApplication = async (data: Application) => {
+    await UpdateApplication(data);
   };
 
   return (
     <ApplicationForm
       setHasAppListUpdated={setHasAppListUpdated}
-      submitData={addApplication}
+      submitData={updateApplication}
     />
   );
 };
 
-export default AddApplicationScreen;
+export default EditApplicationScreen;

@@ -29,6 +29,7 @@ test('redners application card', () => {
       key={application.id}
       id={application.id}
       isRefreshing={false}
+      setHasAppListUpdated={() => {}}
     />,
   );
 

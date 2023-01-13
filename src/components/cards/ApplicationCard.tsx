@@ -1,18 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, TouchableWithoutFeedback, View} from 'react-native';
-import {ApplicationStatus} from '../../models/Application';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import ApplicationCardStyle from './ApplicationCardStyle';
 import {useApplication} from '../../hooks/UseApplication';
+import {ApplicationStatus} from '../../models/Application';
+import EditApplicationModal from '../modals/EditApplicationModal';
+import ApplicationCardStyle from './ApplicationCardStyle';
 
 type Props = {
   id: string;
   isRefreshing: boolean;
+  setHasAppListUpdated: Function;
 };
 
 const ApplicationCard: React.FC<Props> = props => {
-  const {id, isRefreshing} = props;
+  const {id, isRefreshing, setHasAppListUpdated} = props;
   const {application, isError, isLoading, refresh} = useApplication(id);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     console.debug('Refreshing Application: ' + application.name, application);
@@ -31,10 +34,19 @@ const ApplicationCard: React.FC<Props> = props => {
 
   return (
     <View testID="application-card">
+      <EditApplicationModal
+        application={application}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        setHasAppListUpdated={setHasAppListUpdated}
+      />
       <TouchableWithoutFeedback
         onPress={() => {
           console.log('Pressed');
           console.log(application);
+        }}
+        onLongPress={() => {
+          setModalVisible(true);
         }}>
         <View style={ApplicationCardStyle.mainCardView}>
           <View>
