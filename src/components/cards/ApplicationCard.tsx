@@ -3,15 +3,15 @@ import {Text, TouchableWithoutFeedback, View} from 'react-native';
 import {ApplicationStatus} from '../../models/Application';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ApplicationCardStyle from './ApplicationCardStyle';
+import {useApplication} from '../../hooks/UseApplication';
 
 type Props = {
   id: string;
-  useApplication: Function;
   isRefreshing: boolean;
 };
 
 const ApplicationCard: React.FC<Props> = props => {
-  const {id, useApplication, isRefreshing} = props;
+  const {id, isRefreshing} = props;
   const {application, isError, isLoading, refresh} = useApplication(id);
 
   useEffect(() => {

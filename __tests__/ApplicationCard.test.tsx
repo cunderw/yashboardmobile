@@ -2,6 +2,7 @@ import React from 'react';
 import {render, screen} from '@testing-library/react-native';
 import ApplicationCard from '../src/components/cards/ApplicationCard';
 import {Application, ApplicationStatus} from '../src/models/Application';
+import * as useApps from '../src/hooks/UseApplication';
 
 test('redners application card', () => {
   const application: Application = {
@@ -13,11 +14,13 @@ test('redners application card', () => {
     keyParam: 'keyParam',
     status: ApplicationStatus.OK,
   };
-  const mockFn = jest.fn((_appId: string) => {
+
+  jest.spyOn(useApps, 'useApplication').mockImplementation((_appId: string) => {
     return {
       application,
-      isError: false,
+      isError: undefined,
       isLoading: false,
+      refresh: jest.fn(),
     };
   });
 
@@ -25,12 +28,11 @@ test('redners application card', () => {
     <ApplicationCard
       key={application.id}
       id={application.id}
-      useApplication={mockFn}
       isRefreshing={false}
     />,
   );
 
-  expect(mockFn).toBeCalledWith(application.id);
+  expect(useApps.useApplication).toBeCalledWith(application.id);
 
   const statusIcon = screen.getByTestId('statusIcon');
   expect(statusIcon.props.children[0]).toEqual('');
