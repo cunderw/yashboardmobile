@@ -1,105 +1,99 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {useState} from 'react';
+import {Alert, Button, View} from 'react-native';
+import TextField from '../TextField';
+import FormStyle from '../../styles/FormStyle';
+import {AddApplication} from '../../data/AddApplication';
 
 const AddApplicationScreen: React.FC = () => {
-  // const [name, setName] = useState('')
-  // const [url, setUrl] = useState('')
-  // const [livenessUrl, setLiveNessUrl] = useState('')
-  // const [apiKey, setApiKey] = useState('')
-  // const [keyParam, setKeyParam] = useState('')
-  // const [error, setError] = useState('')
-  // const [message, setMessage] = useState('')
+  const [name, setName] = useState('');
+  const [url, setUrl] = useState('');
+  const [livenessUrl, setLiveNessUrl] = useState('');
+  const [apiKey, setApiKey] = useState('');
+  const [keyParam, setKeyParam] = useState('');
 
-  // const addApplication = () => {
-  //   if (!name) {
-  //     setError('Name is required')
-  //     return
-  //   }
-  //   if (!url) {
-  //     setError('URL is required')
-  //     return
-  //   }
-  //   const data = {
-  //     name,
-  //     url,
-  //     livenessUrl,
-  //     apiKey,
-  //     keyParam,
-  //   }
-  //   fetch('/api/applications', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then(response => response.json())
-  //     .then(() => {
-  //       setName('')
-  //       setUrl('')
-  //       setLiveNessUrl('')
-  //       setApiKey('')
-  //       setKeyParam('')
-  //       setMessage('App added successfully')
-  //     })
-  // }
+  const errorAlert = (message: string) =>
+    Alert.alert('Error', message, [
+      {text: 'OK', onPress: () => console.log('Error Alert Closed')},
+    ]);
 
-  //return (
-  //  <Container maxWidth="sm">
-  //    {' '}
-  //    {error && <Alert severity="error">{error}</Alert>}
-  //    {message && <Alert severity="success">{message}</Alert>}
-  //    <Box
-  //      component="form"
-  //      sx={{
-  //        '& > :not(style)': { m: 1, width: '25ch' },
-  //      }}
-  //      noValidate
-  //      autoComplete="off"
-  //    >
-  //      <TextField
-  //        variant="outlined"
-  //        id="name-input"
-  //        label="Name"
-  //        value={name}
-  //        onChange={e => setName(e.target.value)}
-  //      />
-  //      <TextField
-  //        variant="outlined"
-  //        id="url-input"
-  //        label="URL"
-  //        value={url}
-  //        onChange={e => setUrl(e.target.value)}
-  //      />
-  //      <TextField
-  //        variant="outlined"
-  //        id="liveness-url-input"
-  //        label="Liveness URL"
-  //        value={livenessUrl}
-  //        onChange={e => setLiveNessUrl(e.target.value)}
-  //      />
-  //      <TextField
-  //        variant="outlined"
-  //        id="api-key-input"
-  //        label="API Key"
-  //        value={apiKey}
-  //        onChange={e => setApiKey(e.target.value)}
-  //      />
-  //      <TextField
-  //        variant="outlined"
-  //        id="key-param-input"
-  //        label="Key Param"
-  //        value={keyParam}
-  //        onChange={e => setKeyParam(e.target.value)}
-  //      />
-  //      <Button variant="contained" onClick={() => addApplication()}>
-  //        Submit
-  //      </Button>
-  //    </Box>
-  //  </Container>
-  //)
+  const successAlert = (message: string) =>
+    Alert.alert('Success', message, [
+      {text: 'OK', onPress: () => console.log('Success Alert Closed')},
+    ]);
 
-  return <View />;
+  const addApplication = () => {
+    if (!name || !url) {
+      errorAlert('Name and URL are required.');
+      return;
+    }
+    const data = {
+      name,
+      url,
+      livenessUrl,
+      apiKey,
+      keyParam,
+    };
+    AddApplication(data)
+      .then(() => {
+        setName('');
+        setUrl('');
+        setLiveNessUrl('');
+        setApiKey('');
+        setKeyParam('');
+        successAlert('Application added successfully.');
+      })
+      .catch(error => {
+        console.error(error);
+        errorAlert('There was an error adding the application.');
+      });
+  };
+
+  return (
+    <View style={FormStyle.mainForm}>
+      <TextField
+        testID="name-input"
+        value={name}
+        placeholder="Name"
+        onChangeText={setName}
+        label="Name"
+        required={true}
+      />
+      <TextField
+        testID="url-input"
+        value={url}
+        placeholder="URL"
+        onChangeText={setUrl}
+        label="URL"
+        required={true}
+      />
+      <TextField
+        testID="liveness-url-input"
+        value={livenessUrl}
+        placeholder="Liveness URL"
+        onChangeText={setLiveNessUrl}
+        label="Liveness URL"
+      />
+      <TextField
+        testID="api-key-input"
+        value={apiKey}
+        placeholder="API Key"
+        onChangeText={setApiKey}
+        label="API Key"
+      />
+      <TextField
+        testID="key-param-input"
+        value={keyParam}
+        placeholder="Key Param"
+        onChangeText={setKeyParam}
+        label="Key Param"
+      />
+      <Button
+        testID="submit-button"
+        title="Submit"
+        onPress={() => addApplication()}
+      />
+    </View>
+  );
 };
 
 export default AddApplicationScreen;
