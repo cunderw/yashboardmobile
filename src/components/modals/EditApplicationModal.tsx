@@ -53,6 +53,7 @@ const EditApplicationModal: React.FC<Props> = props => {
               screenName={'EditApplication'}
               title={'Edit'}
               onPress={handleEditButton}
+              routeParams={{application}}
             />
             <Button title={'Delete'} onPress={handleDeleteButton} />
           </View>

@@ -5,16 +5,17 @@ import {Button} from 'react-native';
 import HomeScreen from './components/screens/HomeScreen';
 import AddApplicationScreen from './components/screens/AddApplicationScreen';
 import EditApplicationScreen from './components/screens/EditApplicationScreen';
+import {RootStackParamList} from './AppRoutes';
 
 const App = () => {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<RootStackParamList>();
   const [hasAppListUpdated, setHasAppListUpdated] = useState(false);
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="home"
+          name="Home"
           options={({navigation}) => ({
             title: 'Home',
             headerStyle: {
@@ -37,7 +38,15 @@ const App = () => {
             />
           )}
         </Stack.Screen>
-        <Stack.Screen name="AddApplication">
+        <Stack.Screen
+          name="AddApplication"
+          options={() => ({
+            title: 'Add',
+            headerStyle: {
+              backgroundColor: '#273469',
+            },
+            headerTintColor: '#EBF2FA',
+          })}>
           {props => (
             <AddApplicationScreen
               {...props}
@@ -45,7 +54,16 @@ const App = () => {
             />
           )}
         </Stack.Screen>
-        <Stack.Screen name="EditApplication">
+        <Stack.Screen
+          name="EditApplication"
+          options={() => ({
+            title: 'Edit',
+            headerStyle: {
+              backgroundColor: '#273469',
+            },
+            headerTintColor: '#EBF2FA',
+          })}
+          initialParams={{application: undefined}}>
           {props => (
             <EditApplicationScreen
               {...props}
