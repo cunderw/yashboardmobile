@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Alert, Button, View} from 'react-native';
-import TextField from '../TextField';
+import TextField from '../inputs/TextField';
 import FormStyle from '../../styles/FormStyle';
 import {AddApplication} from '../../data/AddApplication';
 

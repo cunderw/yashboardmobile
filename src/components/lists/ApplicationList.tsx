@@ -1,20 +1,16 @@
 import React, {useState} from 'react';
-import ApplicationCard from './cards/ApplicationCard';
-import {useApplications, useApplication} from '../hooks/UseApplication';
-import {Application} from '../models/Application';
+import ApplicationCard from '../cards/ApplicationCard';
+import {useApplications} from '../../hooks/UseApplication';
+import {Application} from '../../models/Application';
 import {FlatList, View} from 'react-native';
 
-const Applications: React.FC = () => {
+const ApplicationList: React.FC = () => {
   const {applications, isError, isLoading, refresh} = useApplications();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshApp, toggleRefreshApp] = useState(false);
 
   const renderItem = ({item}: {item: Application}) => (
-    <ApplicationCard
-      id={item.id}
-      useApplication={useApplication}
-      isRefreshing={refreshApp}
-    />
+    <ApplicationCard id={item.id} isRefreshing={refreshApp} />
   );
 
   const refreshApps = () => {
@@ -37,6 +33,7 @@ const Applications: React.FC = () => {
 
   return (
     <FlatList
+      testID="application-list"
       data={applications}
       renderItem={renderItem}
       keyExtractor={item => item.id}
@@ -46,4 +43,4 @@ const Applications: React.FC = () => {
   );
 };
 
-export default Applications;
+export default ApplicationList;

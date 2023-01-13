@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TextInput} from 'react-native';
-import TextInputStyle from '../styles/TextInputStyle';
+import TextInputStyle from '../../styles/TextInputStyle';
 
 type Props = {
   testID: string;

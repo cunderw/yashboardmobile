@@ -34,6 +34,6 @@ test('redners application card', () => {
 
   expect(useApps.useApplication).toBeCalledWith(application.id);
 
-  const statusIcon = screen.getByTestId('statusIcon');
+  const statusIcon = screen.getByTestId('status-icon');
   expect(statusIcon.props.children[0]).toEqual('');
 });
