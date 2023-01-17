@@ -1,11 +1,17 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {Button} from 'react-native';
+import {RightHeaderButton} from './components/buttons/Button';
 import HomeScreen from './components/screens/HomeScreen';
 import AddApplicationScreen from './components/screens/AddApplicationScreen';
 import EditApplicationScreen from './components/screens/EditApplicationScreen';
-import {RootStackParamList} from './AppRoutes';
+import {Application} from './models/Application';
+
+type RootStackParamList = {
+  Home: React.FC;
+  AddApplication: React.FC;
+  EditApplication: {application: Application} | undefined;
+};
 
 const App = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -23,10 +29,10 @@ const App = () => {
             },
             headerTintColor: '#EBF2FA',
             headerRight: () => (
-              <Button
+              <RightHeaderButton
+                testID="add-button"
                 onPress={() => navigation.navigate('AddApplication')}
                 title="Add"
-                color="#EBF2FA"
               />
             ),
           })}>

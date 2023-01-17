@@ -41,6 +41,7 @@ const ApplicationList: React.FC<Props> = props => {
   }, [hasAppListUpdated, refreshApps, setHasAppListUpdated]);
 
   if (isError) {
+    console.error('Error loading applications');
     return <View />;
   }
 

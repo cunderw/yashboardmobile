@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {Alert, Button, View} from 'react-native';
-import TextField from '../inputs/TextField';
-import FormStyle from '../../styles/FormStyle';
+import {Alert, View} from 'react-native';
 import {Application} from '../../models/Application';
+import FormStyle from '../../styles/FormStyle';
+import {Button} from '../buttons/Button';
+import TextField from '../inputs/TextField';
 
 type Props = {
   application?: Application;
@@ -114,7 +115,7 @@ const ApplicationForm: React.FC<Props> = props => {
       <Button
         testID="submit-button"
         title="Submit"
-        onPress={() => handleSubmit()}
+        onPress={async () => await handleSubmit()}
       />
     </View>
   );

@@ -1,9 +1,10 @@
 import React from 'react';
-import {Modal, Alert, View, Text, Button, TouchableOpacity} from 'react-native';
+import {Modal, Alert, View, Text, TouchableOpacity} from 'react-native';
+import {Button} from '../buttons/Button';
 import {Application} from '../../models/Application';
 import ModalStyle from '../../styles/ModalStyle';
 import {DeleteApplication} from '../../data/Applications';
-import {GoToButton} from '../buttons/GoToButton';
+import {GoToButton} from '../buttons/Button';
 
 type Props = {
   application: Application;
@@ -50,12 +51,17 @@ const EditApplicationModal: React.FC<Props> = props => {
           <View style={ModalStyle.modalView}>
             <Text style={ModalStyle.modalText}>{application.name}</Text>
             <GoToButton
+              testID={'edit-button'}
               screenName={'EditApplication'}
               title={'Edit'}
               onPress={handleEditButton}
               routeParams={{application}}
             />
-            <Button title={'Delete'} onPress={handleDeleteButton} />
+            <Button
+              testID="delete-button"
+              title={'Delete'}
+              onPress={handleDeleteButton}
+            />
           </View>
         </View>
       </TouchableOpacity>

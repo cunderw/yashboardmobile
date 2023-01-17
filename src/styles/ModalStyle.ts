@@ -27,21 +27,8 @@ const ModalStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  button: {
-    borderRadius: 4,
-    padding: 10,
-    elevation: 2,
-    margin: 4,
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
   modalText: {
+    fontSize: 16,
     marginBottom: 15,
     textAlign: 'center',
   },
