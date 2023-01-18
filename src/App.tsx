@@ -5,15 +5,14 @@ import {RightHeaderButton} from './components/buttons/Button';
 import HomeScreen from './components/screens/HomeScreen';
 import AddApplicationScreen from './components/screens/AddApplicationScreen';
 import EditApplicationScreen from './components/screens/EditApplicationScreen';
-import {AppListUpdatedContext} from './contexts/AppListUpdateContext';
+import {AppListUpdatedProvider} from './contexts/AppListUpdateContext';
 import {RootStackParamList} from './AppRoutes';
 
 const App = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
-  const [appListUpdated, setAppListUpdated] = React.useState(false);
 
   return (
-    <AppListUpdatedContext.Provider value={{appListUpdated, setAppListUpdated}}>
+    <AppListUpdatedProvider>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -59,7 +58,7 @@ const App = () => {
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
-    </AppListUpdatedContext.Provider>
+    </AppListUpdatedProvider>
   );
 };
 
