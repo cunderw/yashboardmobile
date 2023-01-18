@@ -1,19 +1,8 @@
 import React from 'react';
 import ApplicationList from '../lists/ApplicationList';
 
-type Props = {
-  hasAppListUpdated: boolean;
-  setHasAppListUpdated: Function;
-};
-
-const HomeScreen: React.FC<Props> = props => {
-  const {hasAppListUpdated, setHasAppListUpdated} = props;
-  return (
-    <ApplicationList
-      hasAppListUpdated={hasAppListUpdated}
-      setHasAppListUpdated={setHasAppListUpdated}
-    />
-  );
+const HomeScreen: React.FC = () => {
+  return <ApplicationList />;
 };
 
 export default HomeScreen;

@@ -5,17 +5,17 @@ import {Application} from '../../models/Application';
 import ModalStyle from '../../styles/ModalStyle';
 import {DeleteApplication} from '../../data/Applications';
 import {GoToButton} from '../buttons/Button';
+import {useAppListUpdatedContext} from '../../contexts/AppListUpdateContext';
 
 type Props = {
   application: Application;
   modalVisible: boolean;
   setModalVisible: Function;
-  setHasAppListUpdated: Function;
 };
 
 const EditApplicationModal: React.FC<Props> = props => {
-  const {application, modalVisible, setModalVisible, setHasAppListUpdated} =
-    props;
+  const {setAppListUpdated} = useAppListUpdatedContext();
+  const {application, modalVisible, setModalVisible} = props;
 
   const handleEditButton = () => {
     setModalVisible(!modalVisible);
@@ -25,7 +25,7 @@ const EditApplicationModal: React.FC<Props> = props => {
     setModalVisible(!modalVisible);
     try {
       await DeleteApplication(application.id);
-      setHasAppListUpdated(true);
+      setAppListUpdated(true);
       Alert.alert('Application Deleted');
     } catch (e) {
       Alert.alert('There was an error deleting the application.');

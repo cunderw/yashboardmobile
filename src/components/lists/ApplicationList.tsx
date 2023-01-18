@@ -3,24 +3,16 @@ import ApplicationCard from '../cards/ApplicationCard';
 import {useApplications} from '../../hooks/UseApplication';
 import {Application} from '../../models/Application';
 import {FlatList, View} from 'react-native';
+import {useAppListUpdatedContext} from '../../contexts/AppListUpdateContext';
 
-type Props = {
-  hasAppListUpdated: boolean;
-  setHasAppListUpdated: Function;
-};
-
-const ApplicationList: React.FC<Props> = props => {
-  const {hasAppListUpdated, setHasAppListUpdated} = props;
+const ApplicationList: React.FC = () => {
   const {applications, isError, isLoading, refresh} = useApplications();
+  const {appListUpdated, setAppListUpdated} = useAppListUpdatedContext();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshApp, toggleRefreshApp] = useState(false);
 
   const renderItem = ({item}: {item: Application}) => (
-    <ApplicationCard
-      id={item.id}
-      isRefreshing={refreshApp}
-      setHasAppListUpdated={setHasAppListUpdated}
-    />
+    <ApplicationCard id={item.id} isRefreshing={refreshApp} />
   );
 
   const refreshApps = useCallback(() => {
@@ -34,11 +26,11 @@ const ApplicationList: React.FC<Props> = props => {
   }, [applications, refresh, setIsRefreshing, toggleRefreshApp]);
 
   useEffect(() => {
-    if (hasAppListUpdated) {
+    if (appListUpdated) {
       refreshApps();
-      setHasAppListUpdated(false);
+      setAppListUpdated(false);
     }
-  }, [hasAppListUpdated, refreshApps, setHasAppListUpdated]);
+  }, [appListUpdated, refreshApps, setAppListUpdated]);
 
   if (isError) {
     console.error('Error loading applications');

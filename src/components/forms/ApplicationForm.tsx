@@ -4,15 +4,16 @@ import {Application} from '../../models/Application';
 import FormStyle from '../../styles/FormStyle';
 import {Button} from '../buttons/Button';
 import TextField from '../inputs/TextField';
+import {useAppListUpdatedContext} from '../../contexts/AppListUpdateContext';
 
 type Props = {
   application?: Application;
-  setHasAppListUpdated: Function;
   submitData: Function;
 };
 
 const ApplicationForm: React.FC<Props> = props => {
-  const {application, setHasAppListUpdated, submitData} = props;
+  const {setAppListUpdated} = useAppListUpdatedContext();
+  const {application, submitData} = props;
   const [name, setName] = useState(application ? application.name : '');
   const [url, setUrl] = useState(application ? application.url : '');
   const [livenessUrl, setLiveNessUrl] = useState(
@@ -66,7 +67,7 @@ const ApplicationForm: React.FC<Props> = props => {
         setKeyParam('');
       }
       successAlert('Application added/updated successfully.');
-      setHasAppListUpdated(true);
+      setAppListUpdated(true);
     } catch (error) {
       console.error(error);
       errorAlert('There was an error adding/updating the application.');

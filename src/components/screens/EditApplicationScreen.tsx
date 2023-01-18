@@ -5,12 +5,7 @@ import ApplicationForm from '../forms/ApplicationForm';
 import {useRoute} from '@react-navigation/native';
 import {RootRouteProps} from '../../AppRoutes';
 
-type Props = {
-  setHasAppListUpdated: Function;
-};
-
-const EditApplicationScreen: React.FC<Props> = props => {
-  const {setHasAppListUpdated} = props;
+const EditApplicationScreen: React.FC = () => {
   const route = useRoute<RootRouteProps<'EditApplication'>>();
 
   const updateApplication = async (data: Application) => {
@@ -19,7 +14,6 @@ const EditApplicationScreen: React.FC<Props> = props => {
 
   return (
     <ApplicationForm
-      setHasAppListUpdated={setHasAppListUpdated}
       submitData={updateApplication}
       application={route.params?.application}
     />

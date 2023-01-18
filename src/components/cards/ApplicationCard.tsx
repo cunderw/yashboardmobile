@@ -9,11 +9,10 @@ import ApplicationCardStyle from './ApplicationCardStyle';
 type Props = {
   id: string;
   isRefreshing: boolean;
-  setHasAppListUpdated: Function;
 };
 
 const ApplicationCard: React.FC<Props> = props => {
-  const {id, isRefreshing, setHasAppListUpdated} = props;
+  const {id, isRefreshing} = props;
   const {application, isError, isLoading, refresh} = useApplication(id);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -38,7 +37,6 @@ const ApplicationCard: React.FC<Props> = props => {
         application={application}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        setHasAppListUpdated={setHasAppListUpdated}
       />
       <TouchableWithoutFeedback
         onPress={() => {
