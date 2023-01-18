@@ -5,6 +5,11 @@ import {useApplication} from '../../hooks/UseApplication';
 import {ApplicationStatus} from '../../models/Application';
 import EditApplicationModal from '../modals/EditApplicationModal';
 import ApplicationCardStyle from './ApplicationCardStyle';
+import {useNavigation} from '@react-navigation/native';
+
+type Nav = {
+  navigate: (value: string, rouateParams: any) => void;
+};
 
 type Props = {
   id: string;
@@ -15,6 +20,7 @@ const ApplicationCard: React.FC<Props> = props => {
   const {id, isRefreshing} = props;
   const {application, isError, isLoading, refresh} = useApplication(id);
   const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation<Nav>();
 
   useEffect(() => {
     console.debug('Refreshing Application: ' + application.name, application);
@@ -40,8 +46,7 @@ const ApplicationCard: React.FC<Props> = props => {
       />
       <TouchableWithoutFeedback
         onPress={() => {
-          console.log('Pressed');
-          console.log(application);
+          navigation.navigate('AppView', {application: application});
         }}
         onLongPress={() => {
           setModalVisible(true);

@@ -7,6 +7,7 @@ import AddApplicationScreen from './components/screens/AddApplicationScreen';
 import EditApplicationScreen from './components/screens/EditApplicationScreen';
 import {AppListUpdatedProvider} from './contexts/AppListUpdateContext';
 import {RootStackParamList} from './AppRoutes';
+import AppViewScreen from './components/screens/AppViewScreen';
 
 const App = () => {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -55,6 +56,18 @@ const App = () => {
             })}
             initialParams={{application: undefined}}>
             {_props => <EditApplicationScreen />}
+          </Stack.Screen>
+          <Stack.Screen
+            name="AppView"
+            options={({route}) => ({
+              title: route.params?.application.name || '',
+              headerStyle: {
+                backgroundColor: '#273469',
+              },
+              headerTintColor: '#EBF2FA',
+            })}
+            initialParams={{application: undefined}}>
+            {_props => <AppViewScreen />}
           </Stack.Screen>
         </Stack.Navigator>
       </NavigationContainer>
