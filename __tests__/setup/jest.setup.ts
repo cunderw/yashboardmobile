@@ -12,5 +12,10 @@ jest.mock('@react-navigation/native', () => {
       navigate: jest.fn(),
       dispatch: jest.fn(),
     }),
+    useRoute: () => ({
+      params: {
+        application: '<paramValue>',
+      },
+    }),
   };
 });
