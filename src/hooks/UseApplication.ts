@@ -2,9 +2,9 @@ import useSWR from 'swr';
 import fetcher from '../lib/fetcher';
 import {Application, ApplicationStatus} from '../models/Application';
 
-export const useApplication = (id: string) => {
+export const useApplication = (baseUrl: string, id: string) => {
   const {data, error, isLoading, mutate} = useSWR<Application, Error>(
-    `http://10.1.0.200:3000/api/applications/${id}`,
+    `${baseUrl}/api/applications/${id}`,
     fetcher,
   );
   if (error) {
@@ -26,9 +26,9 @@ export const useApplication = (id: string) => {
   };
 };
 
-export const useApplications = () => {
+export const useApplications = (baseUrl: string) => {
   const {data, error, isLoading, mutate} = useSWR<Application[], Error>(
-    'http://10.1.0.200:3000/api/applications/',
+    `${baseUrl}/api/applications/`,
     fetcher,
   );
   if (error) {

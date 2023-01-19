@@ -13,6 +13,7 @@ type Props = {
   routeParams?: any;
   screenName?: string;
   onPress: () => void;
+  onLongPress?: () => void;
 };
 
 export const Button: React.FC<Props> = props => {
@@ -30,15 +31,35 @@ export const Button: React.FC<Props> = props => {
 };
 
 export const RightHeaderButton: React.FC<Props> = props => {
-  const {title, testID, onPress} = props;
+  const {title, testID, onPress, onLongPress} = props;
   return (
     <Pressable
       style={ButtonStyle.rightHeaderButton}
       testID={testID}
       onPress={() => {
         onPress();
+      }}
+      onLongPress={() => {
+        onLongPress?.();
       }}>
       <Text style={ButtonStyle.rightHeaderButtonText}>{title}</Text>
+    </Pressable>
+  );
+};
+
+export const LeftHeaderButton: React.FC<Props> = props => {
+  const {title, testID, onPress, onLongPress} = props;
+  return (
+    <Pressable
+      style={ButtonStyle.leftHeaderButton}
+      testID={testID}
+      onPress={() => {
+        onPress();
+      }}
+      onLongPress={() => {
+        onLongPress?.();
+      }}>
+      <Text style={ButtonStyle.leftHeaderButtonText}>{title}</Text>
     </Pressable>
   );
 };

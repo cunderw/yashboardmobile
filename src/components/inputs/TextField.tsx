@@ -22,6 +22,7 @@ const TextField: React.FC<Props> = props => {
         style={TextInputStyle.input}
         placeholder={placeholder}
         onChangeText={onChangeText}
+        autoCapitalize="none"
       />
       {required && !value && (
         <Text testID={testID + '-required-error'} style={TextInputStyle.error}>

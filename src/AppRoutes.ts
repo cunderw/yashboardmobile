@@ -6,6 +6,7 @@ export type RootStackParamList = {
   AddApplication: React.FC;
   EditApplication: {application: Application} | undefined;
   AppView: {application: Application} | undefined;
+  Login: React.FC;
 };
 
 export type RootRouteProps<RouteName extends keyof RootStackParamList> =

@@ -29,6 +29,17 @@ const ButtonStyle = StyleSheet.create({
     fontWeight: 'bold',
     color: '#EBF2FA',
   },
+  leftHeaderButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+  leftHeaderButtonText: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    color: '#EBF2FA',
+  },
 });
 
 export default ButtonStyle;

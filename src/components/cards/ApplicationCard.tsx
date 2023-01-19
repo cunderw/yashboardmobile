@@ -6,6 +6,7 @@ import {ApplicationStatus} from '../../models/Application';
 import EditApplicationModal from '../modals/EditApplicationModal';
 import ApplicationCardStyle from './ApplicationCardStyle';
 import {useNavigation} from '@react-navigation/native';
+import {useAppSettingsContext} from '../../contexts/AppSettingsContext';
 
 type Nav = {
   navigate: (value: string, rouateParams: any) => void;
@@ -17,8 +18,12 @@ type Props = {
 };
 
 const ApplicationCard: React.FC<Props> = props => {
+  const {yashboardUrl} = useAppSettingsContext();
   const {id, isRefreshing} = props;
-  const {application, isError, isLoading, refresh} = useApplication(id);
+  const {application, isError, isLoading, refresh} = useApplication(
+    yashboardUrl,
+    id,
+  );
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<Nav>();
 

@@ -29,11 +29,10 @@ test('redners application card', () => {
       key={application.id}
       id={application.id}
       isRefreshing={false}
-      setHasAppListUpdated={() => {}}
     />,
   );
 
-  expect(useApps.useApplication).toBeCalledWith(application.id);
+  expect(useApps.useApplication).toBeCalledWith('', application.id);
 
   const statusIcon = screen.getByTestId('status-icon');
   expect(statusIcon.props.children[0]).toEqual('');

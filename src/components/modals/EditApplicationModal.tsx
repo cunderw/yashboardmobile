@@ -3,9 +3,10 @@ import {Modal, Alert, View, Text, TouchableOpacity} from 'react-native';
 import {Button} from '../buttons/Button';
 import {Application} from '../../models/Application';
 import ModalStyle from '../../styles/ModalStyle';
-import {DeleteApplication} from '../../data/Applications';
+import {DeleteApplication} from '../../data/YashBoard';
 import {GoToButton} from '../buttons/Button';
 import {useAppListUpdatedContext} from '../../contexts/AppListUpdateContext';
+import {useAppSettingsContext} from '../../contexts/AppSettingsContext';
 
 type Props = {
   application: Application;
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const EditApplicationModal: React.FC<Props> = props => {
+  const {yashboardUrl} = useAppSettingsContext();
   const {setAppListUpdated} = useAppListUpdatedContext();
   const {application, modalVisible, setModalVisible} = props;
 
@@ -24,7 +26,7 @@ const EditApplicationModal: React.FC<Props> = props => {
   const handleDeleteButton = async () => {
     setModalVisible(!modalVisible);
     try {
-      await DeleteApplication(application.id);
+      await DeleteApplication(yashboardUrl, application.id);
       setAppListUpdated(true);
       Alert.alert('Application Deleted');
     } catch (e) {

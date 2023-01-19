@@ -4,9 +4,12 @@ import {useApplications} from '../../hooks/UseApplication';
 import {Application} from '../../models/Application';
 import {FlatList, View} from 'react-native';
 import {useAppListUpdatedContext} from '../../contexts/AppListUpdateContext';
+import {useAppSettingsContext} from '../../contexts/AppSettingsContext';
 
 const ApplicationList: React.FC = () => {
-  const {applications, isError, isLoading, refresh} = useApplications();
+  const {yashboardUrl} = useAppSettingsContext();
+  const {applications, isError, isLoading, refresh} =
+    useApplications(yashboardUrl);
   const {appListUpdated, setAppListUpdated} = useAppListUpdatedContext();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [refreshApp, toggleRefreshApp] = useState(false);
@@ -33,7 +36,7 @@ const ApplicationList: React.FC = () => {
   }, [appListUpdated, refreshApps, setAppListUpdated]);
 
   if (isError) {
-    console.error('Error loading applications');
+    console.error(`Error loading applications from ${yashboardUrl}`, isError);
     return <View />;
   }
 
