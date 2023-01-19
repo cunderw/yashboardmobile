@@ -7,14 +7,21 @@ jest.mock('@react-native-async-storage/async-storage', () =>
 jest.mock('@react-navigation/native', () => {
   const actualNav = jest.requireActual('@react-navigation/native');
   return {
-    ...actualNav,
+    actualNav,
     useNavigation: () => ({
       navigate: jest.fn(),
       dispatch: jest.fn(),
     }),
     useRoute: () => ({
       params: {
-        application: '<paramValue>',
+        application: {
+          id: 'id1',
+          name: 'test',
+          url: 'test.com',
+          livenessUrl: 'test.liveness.com',
+          apiKey: 'apiKey',
+          keyParam: 'keyParam',
+        },
       },
     }),
   };

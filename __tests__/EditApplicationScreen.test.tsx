@@ -35,9 +35,29 @@ test('renders add application screen', () => {
   expect(submitButton).toBeVisible();
 });
 
+test('popluates app from route', async () => {
+  render(<EditApplicationScreen />);
+
+  const nameInput = screen.getByTestId('name-input');
+  const urlInput = screen.getByTestId('url-input');
+  const livenessUrlInput = screen.getByTestId('liveness-url-input');
+  const apiKeyInput = screen.getByTestId('api-key-input');
+  const keyParamInput = screen.getByTestId('key-param-input');
+
+  expect(nameInput.props.value).toBe('test');
+  expect(urlInput.props.value).toBe('test.com');
+  expect(livenessUrlInput.props.value).toBe('test.liveness.com');
+  expect(apiKeyInput.props.value).toBe('apiKey');
+  expect(keyParamInput.props.value).toBe('keyParam');
+});
+
 test('name input is required', async () => {
   render(<EditApplicationScreen />);
   const nameInput = screen.getByTestId('name-input');
+
+  await act(async () => {
+    fireEvent.changeText(nameInput, '');
+  });
 
   expect(screen.getByTestId('name-input-required-error')).toBeVisible();
   await act(async () => {
@@ -48,11 +68,15 @@ test('name input is required', async () => {
 
 test('url input is required', async () => {
   render(<EditApplicationScreen />);
-  const nameInput = screen.getByTestId('url-input');
+  const urlInput = screen.getByTestId('url-input');
+
+  await act(async () => {
+    fireEvent.changeText(urlInput, '');
+  });
 
   expect(screen.getByTestId('url-input-required-error')).toBeVisible();
   await act(async () => {
-    fireEvent.changeText(nameInput, 'test');
+    fireEvent.changeText(urlInput, 'test');
   });
   expect(screen.queryByTestId('url-input-required-error')).toBeNull();
 });
@@ -84,6 +108,7 @@ test('submits data', async () => {
   fireEvent.press(submitButton);
   expect(dataApi.UpdateApplication).toBeCalledWith('', {
     apiKey: 'apiKeyInput',
+    id: 'id1',
     keyParam: 'keyParamInput',
     livenessUrl: 'livenessUrlInput',
     name: 'nameInput',
